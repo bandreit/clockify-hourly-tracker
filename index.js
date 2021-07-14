@@ -66,10 +66,9 @@ lastMonth15th = getLastMonth15th();
 const populateXlsFile = (weeklyTotals) => {
     XlsxPopulate.fromFileAsync("./template.xlsx")
         .then(workbook => {
-            const r = workbook.sheet('Template').range(`B4:E${weeklyTotals.length}`);
-
             // Set the values using a 2D array:
             weeklyTotals = weeklyTotals.map(entry => [weekdays[entry.jsDate.getDay()], entry.date, ' ', entry.duration / 3600])
+            const r = workbook.sheet('Template').range(`B4:E${weeklyTotals.length + 3}`);
 
             r.value(weeklyTotals);
 
