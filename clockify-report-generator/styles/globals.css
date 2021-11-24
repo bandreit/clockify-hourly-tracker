@@ -11,3 +11,8 @@ body {
   width: 80%;
 	max-width: 800px;
 }
+
+.flex {
+  display: flex;
+  justify-content: center;
+}

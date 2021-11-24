@@ -59,9 +59,10 @@ export default function handler(
     }
   }).then(response => {
     if (response.data.defaultWorkspace) {
+      const name = response.data.name;
       getProjects(response.data.defaultWorkspace, CLOCKIFY_API_KEY).then(projects => {
         if (projects.length > 0) {
-          res.status(200).json(projects)
+          res.status(200).json({ name, projects })
         } else {
           res.status(404).send('No projects found');
         }

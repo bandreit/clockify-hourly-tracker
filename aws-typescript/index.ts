@@ -14,7 +14,7 @@ const endpoint = new awsx.apigateway.API("hour-tracker", {
                 if (!event.headers['x-api-key']) {
                     return {
                         headers: {
-                            "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+                            "Access-Control-Allow-Headers": "Content-Type, x-api-key, Access-Control-Allow-Headers",
                             "Access-Control-Allow-Origin": "*",
                             "Access-Control-Allow-Methods": "GET, OPTIONS",
                             "content-type": "text/plain",
@@ -28,7 +28,7 @@ const endpoint = new awsx.apigateway.API("hour-tracker", {
                 if (!event.queryStringParameters) {
                     return {
                         headers: {
-                            "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+                            "Access-Control-Allow-Headers": "Content-Type, x-api-key, Access-Control-Allow-Headers",
                             "Access-Control-Allow-Origin": "*",
                             "Access-Control-Allow-Methods": "GET, OPTIONS",
                             "content-type": "text/plain",
@@ -43,7 +43,7 @@ const endpoint = new awsx.apigateway.API("hour-tracker", {
                 if (!projectId) {
                     return {
                         headers: {
-                            "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+                            "Access-Control-Allow-Headers": "Content-Type, x-api-key, Access-Control-Allow-Headers",
                             "Access-Control-Allow-Origin": "*",
                             "Access-Control-Allow-Methods": "GET, OPTIONS",
                             "content-type": "text/plain",
@@ -64,18 +64,18 @@ const endpoint = new awsx.apigateway.API("hour-tracker", {
 
 
                 const CLOCKIFY_API_KEY = event.headers['x-api-key'];
-                const personalizedReport = await generateReport(projectId, template, CLOCKIFY_API_KEY);
+                const { username, workbookResult } = await generateReport(projectId, template, CLOCKIFY_API_KEY);
 
                 return {
                     statusCode: 200,
                     isBase64Encoded: true,
-                    body: personalizedReport,
+                    body: workbookResult,
                     headers: {
-                        "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+                        "Access-Control-Allow-Headers": "Content-Type, x-api-key, content-disposition, Access-Control-Allow-Headers",
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Methods": "GET, OPTIONS",
                         "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        "content-disposition": "attachment; filename=clockify.xlsx",
+                        "content-disposition": `attachment; filename=TESTYTEST.xlsx`,
                     },
                 };
 
@@ -87,7 +87,7 @@ const endpoint = new awsx.apigateway.API("hour-tracker", {
             eventHandler: async () => {
                 return {
                     headers: {
-                        "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+                        "Access-Control-Allow-Headers": "Content-Type, x-api-key, content-disposition, Access-Control-Allow-Headers",
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Methods": "GET, OPTIONS",
                         "content-type": "text/plain",

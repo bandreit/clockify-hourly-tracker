@@ -11,6 +11,7 @@ type Project = {
 interface Props {
     projects: Project[];
     apiKey: string;
+    name: string;
 }
 
 const ProjectGrid = (props: Props) => {
@@ -18,20 +19,22 @@ const ProjectGrid = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDoneDownloading, setIsDoneDownlading] = useState<boolean>(false);
     const [resultText, setResultText] = useState<string>('');
-    const { projects, apiKey } = props;
+    const { projects, apiKey, name } = props;
     const generateReport = (projectId: string) => {
         try {
             setIsLoading(true);
             axios.get(`https://sgas7wc9ok.execute-api.eu-west-1.amazonaws.com/stage/report?projectId=${projectId}`, {
                 headers: {
-                    'x-api-key': apiKey
+                    'x-api-key': apiKey,
+                    "Access-Control-Allow-Headers": "Content-Type, x-api-key, content-disposition"
                 },
                 responseType: 'blob'
             }).then(response => {
+                console.log(response);
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'report.xlsx');
+                link.setAttribute('download', name + '.xlsx');
                 document.body.appendChild(link);
                 link.click();
                 setIsError(true);
@@ -54,7 +57,11 @@ const ProjectGrid = (props: Props) => {
 
     return (
         <div>
-            {isLoading ? (<div className="has-text-centered"><Image src="/spinner.svg" alt="loading spinner" height={200} width={200} /></div>)
+            {isLoading ? (
+                <div className="has-text-centered">
+                    <Image src="/spinner.svg" alt="loading spinner" height={200} width={200} />
+                    <h1 className="is-title">Using some magic..</h1>
+                </div>)
                 : (
                     <div>
                         <hr></hr>

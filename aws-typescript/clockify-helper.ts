@@ -105,7 +105,7 @@ const populateXlsFile = async (weeklyTotals: any[], excelTemplate: SDK.S3.Body, 
 
             // Write to file.
             const workbookResult = await workbook.outputAsync("base64").then(function (blob: any) { return blob; });
-            return workbookResult;
+            return { username, workbookResult };
         });
     return await result;
 }

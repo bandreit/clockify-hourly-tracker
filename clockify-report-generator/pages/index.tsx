@@ -6,10 +6,13 @@ import ProjectGrid from '../pages/components/ProjectGrid'
 import ErrorNotification from '../pages/components/ErrorNotification'
 import { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
+import Image from 'next/image';
 
 const Home: NextPage = () => {
 
+  const [isLoading, setisLoading] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isErrorPresent, setIsErrorisErrorPresent] = useState(false);
   const [apiKey, setApiKey] = useState('');
@@ -24,14 +27,20 @@ const Home: NextPage = () => {
 
   const fetchProjects = async () => {
     try {
+      setisLoading(true);
       if (typeof window !== "undefined")
-        localStorage.setItem('apiKey', 'Yzg2OTQwYmQtYmUyMy00MjhjLTk2ZjMtZDg5MmI0MjdiMTg2')
+        localStorage.setItem('apiKey', apiKey);
 
-      const projects = await axios.get(`api/projects`, { headers: { 'X-Api-Key': apiKey } });
+      const response = await axios.get(`api/projects`, { headers: { 'X-Api-Key': apiKey } });
+      const { name, projects } = response.data;
 
-      setProjects(projects.data);
+      console.log(name, projects);
+      setName(name);
+      setProjects(projects);
+      setisLoading(false);
       setIsErrorisErrorPresent(false);
     } catch (error: AxiosError | any) {
+      setisLoading(false);
       switch (error.response.status) {
         case 401:
           setError('Uh-oh! That API key you\'re trying to use is invalid :(');
@@ -45,6 +54,12 @@ const Home: NextPage = () => {
     }
   }
 
+  if (isLoading) {
+    return (
+      <div className="flex">
+        <Image src="/spinner.svg" alt="loading spinner" height={500} width={500} />
+      </div>)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -101,7 +116,7 @@ const Home: NextPage = () => {
           </p>
         </div>
       </div>
-      {projects.length > 0 && <ProjectGrid projects={projects} apiKey={apiKey} />}
+      {projects.length > 0 && <ProjectGrid projects={projects} apiKey={apiKey} name={name} />}
 
     </div>
   )
