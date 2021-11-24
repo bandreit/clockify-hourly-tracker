@@ -68,12 +68,10 @@ const generateReport = async (projectId: string, excelTemplate: SDK.S3.Body, CLO
             weeklyTotals.push(...weekLogDataByDay);
         })
 
-
         // set the last date to be the 15th of the current month
         let thisMonth15thUTC = new Date(thisMonth15th);
         thisMonth15thUTC.setHours(0, 0, 0, 0);
-        weeklyTotals = weeklyTotals.filter(log => log.jsDate <= thisMonth15thUTC && log.amount > 0)
-
+        weeklyTotals = weeklyTotals.filter(log => log.jsDate <= thisMonth15thUTC && log.duration > 0)
         return populateXlsFile(weeklyTotals, excelTemplate, username);
     } catch (error) {
         console.log("Error in generation: " + error);
