@@ -34,7 +34,6 @@ const Home: NextPage = () => {
       const response = await axios.get(`api/projects`, { headers: { 'X-Api-Key': apiKey } });
       const { name, projects } = response.data;
 
-      console.log(name, projects);
       setName(name);
       setProjects(projects);
       setisLoading(false);

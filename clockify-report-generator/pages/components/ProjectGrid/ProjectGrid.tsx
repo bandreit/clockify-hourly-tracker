@@ -20,6 +20,7 @@ const ProjectGrid = (props: Props) => {
     const [isDoneDownloading, setIsDoneDownlading] = useState<boolean>(false);
     const [resultText, setResultText] = useState<string>('');
     const { projects, apiKey, name } = props;
+
     const generateReport = (projectId: string) => {
         try {
             setIsLoading(true);
@@ -30,7 +31,6 @@ const ProjectGrid = (props: Props) => {
                 },
                 responseType: 'blob'
             }).then(response => {
-                console.log(response);
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -67,7 +67,7 @@ const ProjectGrid = (props: Props) => {
                         <hr></hr>
                         <h1 className="title has-text-centered p-2">Select a project to generate the report for:</h1>
                         <div className="wrapper container">
-                            {projects.map(project => (
+                            {projects?.map(project => (
                                 <div className="tile is-ancestor p-4 max-w-50" key={project.id} onClick={() => { generateReport(project.id) }}>
                                     <div className="tile is-vertical is-12">
                                         <div className="tile">
