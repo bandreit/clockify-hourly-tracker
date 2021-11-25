@@ -45,7 +45,12 @@ const Home: NextPage = () => {
           setError('Uh-oh! That API key you\'re trying to use is invalid :(');
           setIsErrorisErrorPresent(true);
           break;
+        case 404:
+          setError('Uh-oh! It looks like you don\'t have any projects. Please set the hours to a certain project ^^.');
+          setIsErrorisErrorPresent(true);
+          break;
         default:
+          console.log(error);
           setError('Uh-oh! Something went really bad :( Try to contact Andrei Bostan, he might help you');
           setIsErrorisErrorPresent(true);
           break;
