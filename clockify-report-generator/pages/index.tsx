@@ -65,7 +65,7 @@ const Home: NextPage = () => {
       <Head>
         <title>LEGO Report Generator</title>
         <meta name="description" content="A helper for the studenr workers at LEGO to generate their monthly hours report" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/LEGO.png" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
       </Head>
 
