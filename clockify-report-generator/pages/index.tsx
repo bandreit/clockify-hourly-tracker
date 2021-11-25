@@ -113,6 +113,25 @@ const Home: NextPage = () => {
               here
             </a >
           </p>
+          <p className="is-subtitile">
+            Enable the Timesheef functionality for a better time logging experience{' '}
+            <a
+              rel="noreferrer"
+              href="https://mandrillapp.com/track/click/30171113/clockify.me?p=eyJzIjoiWmFYdGFOdmo0NHNiTy10R1ptWW83OVBhWnM4IiwidiI6MSwicCI6IntcInVcIjozMDE3MTExMyxcInZcIjoxLFwidXJsXCI6XCJodHRwczpcXFwvXFxcL2Nsb2NraWZ5Lm1lXFxcL3dvcmtzcGFjZXNcXFwvNjE5ZTI3ODRiODVjM2UwZTQxNmIyYzk0XFxcL3NldHRpbmdzXCIsXCJpZFwiOlwiMzEwNGI3MDZiNDcxNDQ1NjhjMTc2Y2RmMGU2ZDc0MTZcIixcInVybF9pZHNcIjpbXCIwYWFhN2Q4MDJjNmJiMDU5NjRkYTk3NzdlOTg0ODE3YjUxN2MyMzM5XCJdfSJ9"
+              target="_blank">
+              here
+            </a >
+          </p>
+          <p className="is-subtitile">
+            Confluence page{' '}
+            <a
+              rel="noreferrer"
+              href="https://legogroup.atlassian.net/wiki/spaces/CRG/pages/edit-v2/37129160452"
+              target="_blank">
+              here
+            </a >
+          </p>
+
         </div>
       </div>
       {projects.length > 0 && <ProjectGrid projects={projects} apiKey={apiKey} name={name} />}
