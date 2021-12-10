@@ -75,7 +75,12 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="container is-max-desktop p-4">
-        <p className="title is-2">Your Clockify API Key:</p>
+        <p className="title is-2">Your Clockify API Key (found <a
+          rel="noreferrer"
+          href="https://clockify.me/user/settings"
+          target="_blank">
+          here
+        </a >):</p>
         <div className="block">
           <div className="field is-grouped">
             <div className="control is-expanded">
