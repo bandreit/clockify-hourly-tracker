@@ -86,7 +86,7 @@ const populateXlsFile = async (weeklyTotals: any[], excelTemplate: SDK.S3.Body, 
             weeklyTotals = weeklyTotals.map(entry => {
                 const day: number = entry.jsDate.getDay();
                 const weekday: string = weekdays[day];
-                const timeSpent: string = (entry.duration / 3600).toFixed(2);
+                const timeSpent: number = Number((entry.duration / 3600).toFixed(2));
 
                 return [weekday, entry.date, timeSpent]
             })
@@ -97,8 +97,12 @@ const populateXlsFile = async (weeklyTotals: any[], excelTemplate: SDK.S3.Body, 
             const totalHours = weeklyTotals.reduce((acc, curr) => acc + parseFloat(curr[2]), 0);
             const sheet = workbook.sheet(0);
             sheet.cell("C34").value(username);
+
             sheet.cell("D31").value(totalHours);
             sheet.cell("C32").value(totalHours);
+            sheet.cell("D31").formula('=SUM(D4:D30)');
+            sheet.cell("E31").formula('=SUM(E4:E30)');
+            sheet.cell("C32").formula('=SUM(D31:E31)');
             sheet.cell("C37").value((new Date()).toLocaleDateString('en-US'));
 
             // Write to file.

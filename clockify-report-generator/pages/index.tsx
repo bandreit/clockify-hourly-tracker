@@ -101,6 +101,10 @@ const Home: NextPage = () => {
             </div>
           </div>
           {isErrorPresent && <ErrorNotification error={error} setIsErrorisErrorPresent={() => setIsErrorisErrorPresent(false)} />}
+          <p className="is-subtitile has-text-weight-bold has-text-info">
+            Make sure to create a project and then assign your time entries to it in Clockify ;)
+          </p>
+          <hr></hr>
           <p className="is-subtitile">
             Set up a Clockify account {' '}
             <a
@@ -141,7 +145,7 @@ const Home: NextPage = () => {
       </div>
       {projects.length > 0 && <ProjectGrid projects={projects} apiKey={apiKey} name={name} />}
 
-    </div>
+    </div >
   )
 }
 
